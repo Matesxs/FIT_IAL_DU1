@@ -72,6 +72,7 @@ void untilLeftPar( Stack *stack, char *postfixExpression, unsigned *postfixExpre
 
         // Pop old top value from stack and get new one
         Stack_Pop(stack);
+
         Stack_Top(stack, &tmp);
     }
 
@@ -146,6 +147,8 @@ void doOperation( Stack *stack, char c, char *postfixExpression, unsigned *postf
                 (*postfixExpressionLength)++;
                 // Pop operator from stack and get new one
                 Stack_Pop(stack);
+
+                if (Stack_IsEmpty(stack)) break;
                 Stack_Top(stack, &tmp);
             }
             // Put current operator to stack
@@ -256,6 +259,7 @@ char *infix2postfix( const char *infixExpression )
 
     // Every expression needs to end with =, so we add it to the end
     postfixExpression[postfixExpressionLength++] = '=';
+    postfixExpression[postfixExpressionLength++] = '\0';
 
     return postfixExpression;
 }
